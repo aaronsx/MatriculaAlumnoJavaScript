@@ -3,9 +3,9 @@
  */
 class Alumno
 {
-	constructor(nombre,apellidosAlumno,tlfAlumno,marcaPortatil,modeloPortatil,identificadorPortatil) 
+	constructor(identificadorAlumno, nombre,apellidosAlumno,tlfAlumno,marcaPortatil,modeloPortatil,identificadorPortatil) 
 	{
-    this.identificadorAlumno = 0;
+    this.identificadorAlumno = identificadorAlumno;
     this.nombreAlumno = nombreAlumno;
     this.apellidosAlumno = apellidosAlumno;
     this.tlfAlumno = tlfAlumno;
@@ -46,7 +46,7 @@ class ImplementacionAlumno
 		if(bd.length()==0)
 		alert("No puedes borrar porque la lista esta a 0");
 		else
-		for (var i = 0; i > bd.length(); i ++)
+		for (var i = 0; i < bd.length(); i ++)
 				if(bd[i].identificadorAlumno() == idAlumnoBorrar) 
 					bd.splice(i, 1);
 				
