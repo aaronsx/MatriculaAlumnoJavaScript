@@ -21,7 +21,7 @@ class Alumno
 class ImplementacionAlumno
 {
 	//Metodo para añadir los alumnos
-	static addAlumno(bd)
+	addAlumno(bd)
 	{
 		//Pedimos nombre,apellidos,telefono, marca, modelo 
 		var nombre=prompt("Introduce el nombre del alumno");
@@ -30,15 +30,16 @@ class ImplementacionAlumno
 		var marca=prompt("Introduce la marca del portatil");
 		var modelo=prompt("Introduce el modelo del portatil");
 		//Generamos una id con el tamaño de la lista y un idPortatil con el metodo concatenacionMarcaModelo
-		var idAlumno=calculoIdAlumno(bd);
-		var idPortatil=concatenacionMarcaModelo(marca,modelo);
-		var alumno= new alumnoPortatil(idAlumno,nombre,apellidos,telefono,marca,modelo,idPortatil);
+		var idAlumno=InterfazID.calculaid(bd);
+		var idPortatil=marca.substring(0,3)+"-"+modelo.substring(0,3);
+		var alumno= new Alumno(idAlumno,nombre,apellidos,telefono,marca,modelo,idPortatil);
 		//Añadimos alumno a la lista
 		bd.push(alumno);
 		return bd;
+	
 	}
 	//Metodo para borrar los alumnos
-	static borrarAlumno(bd)
+	borrarAlumno(bd)
 	{
 		//pedimos una id 
 		var idAlumnoBorrar=prompt("Introduzca el id del Alumno:");
@@ -53,65 +54,60 @@ class ImplementacionAlumno
 				
 		return bd;
 	}
-	//Metodo para concatenar Modelo y marca
-	concatenacionMarcaModelo(marca,modelo) 
-	{
-		var idPortatil;
-		if(marca.length()<3) {
-			idPortatil = marca;
-		}else {
-			idPortatil = marca.substring(0,3);
-		}
-		idPortatil += "-";
-		if(marca.length()<3) {
-			idPortatil += modelo;
-		}else {
-			idPortatil += modelo.substring(0,3);
-		}
-		return idPortatil;
-	}
+
+	
 	//Metodo para mostrar los alumnos
-	static mostrarMatriculas(bd)
+	mostrarMatriculas(bd)
 	{
 		for(var i = 0; i<bd.length() ; i++) 
 		{
 				alert("Id: "+bd[i].identificadorAlumno+"\nNombre: "+bd[i].nombreAlumno+"\nApellidos: "+bd[i].apellidosAlumno+"\nTelefono: "+bd[i].tlfAlumno+"\nIdPortatil: "+bd[i].identificadorPortatil);
 		}
 	}
-	//Calculamos la id de los alumnos
-	calculoIdAlumno(bd) 
-	{
-		var auxiliar = 0;
-		for(var i = 0; i<bd.length() ; i++) {
-			var j = bd[i].identificadorAlumno;
-			if(auxiliar<j) {
-				auxiliar = j;
-			}
+
+}
+class InterfazID{
+	/**
+	 * Calcula el id del Alumno a partir del Array
+	 */
+	static calculaid(bd){
+		//Si no esta vacia
+		if(bd.length!=0){
+		var id=0;
+		//Se reccore la lista para comprobar que id tienen y darles el siguiente
+			 for(var i=0;i<bd.length;i++) {
+				 var j=bd[i].idAlumno;
+				 if(id<j)
+					 id=j;
+			 }
+			 return id+1;
 		}
-		return auxiliar + 1;
+		//Si esta vacia se le da el primero
+		else
+			return 0;
 	}
 }
 /**
  * funcion Menu para mostrar informacion y hacer el llamado
  */
-function Menu()
-{
-	var db=[];
-	do{
-		var opcion=Number(prompt("1-Añadir alumnos \n2-Borrar alumnos \n3-Mostrar alumnos\n0-Para salir"));
-		switch(opcion)
-		{
-			case 1:
-				ImplementacionAlumno.addAlumno(bd);
-				break;
-			case 2:
-				ImplementacionAlumno.borrarAlumno(bd);
-				break;
-			case 3:
-				ImplementacionAlumno.mostrarMatriculas(bd);
-				break;
-			
-		}
-	}while(opcion!=0);
-	
-}	
+function Menu(){
+ var bd=[];
+ var opcion
+ do{
+ 		opcion=Number(prompt("1-Añadir alumnos \n2-Borrar alumnos \n3-Mostrar alumnos\n0-Para salir"));
+ 
+ 	switch(opcion){
+		case 1:
+			ImplementacionAlumno.addAlumno(bd);
+			 break;
+		case 2:
+			 ImplementacionAlumno.borrarAlumno(bd);
+			 break;
+		case 3:
+			ImplementacionAlumno.mostrarMatriculas(bd);
+			break;
+	 }
+
+ }while(opcion!=0);
+ 
+}
