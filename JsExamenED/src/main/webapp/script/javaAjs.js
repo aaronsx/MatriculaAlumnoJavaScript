@@ -24,11 +24,11 @@ class ImplementacionAlumno
 	addAlumno(bd)
 	{
 		//Pedimos nombre,apellidos,telefono, marca, modelo 
-		var nombre=prompt("Introduce el nombre del alumno");
-		var apellidos=prompt("Introduce el apellido del alumno");
-		var telefono=Number(prompt("Introduce el numero del alumno"));
-		var marca=prompt("Introduce la marca del portatil");
-		var modelo=prompt("Introduce el modelo del portatil");
+		var nombre=prompt("Introduce el nombre del alumno:");
+		var apellidos=prompt("Introduce el apellido del alumno:");
+		var telefono=Number(prompt("Introduce el numero del alumno:"));
+		var marca=prompt("Introduce la marca del portatil:");
+		var modelo=prompt("Introduce el modelo del portatil:");
 		//Generamos una id con el tamaño de la lista y un idPortatil con el metodo concatenacionMarcaModelo
 		var idAlumno=InterfazID.calculaid(bd);
 		var idPortatil=marca.substring(0,3)+"-"+modelo.substring(0,3);
